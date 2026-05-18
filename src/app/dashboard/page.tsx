@@ -36,6 +36,7 @@ export default function DashboardPage() {
   const fetchProviders = useCallback(async () => {
     const res = await fetch('/api/providers');
     const data = await res.json();
+    console.log(data);
     setProviders(data.providers ?? []);
     setLastUpdate(new Date());
     setLoading(false);
