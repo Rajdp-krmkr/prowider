@@ -4,6 +4,9 @@ import { assignProviders } from '@/lib/allocation';
 import { broadcast } from '@/lib/sse';
 import { z } from 'zod';
 
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
+
 const schema = z.object({
   name: z.string().min(1),
   phone: z.string().min(6),
