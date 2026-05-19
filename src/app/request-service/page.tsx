@@ -32,7 +32,8 @@ export default function RequestServicePage() {
       body: JSON.stringify({ ...form, serviceId: Number(form.serviceId) }),
     });
 
-    const data = await res.json();
+    const raw = await res.text();
+    const data = raw ? JSON.parse(raw) : null;
 
     if (res.ok) {
       setStatus('success');
@@ -41,7 +42,7 @@ export default function RequestServicePage() {
       setForm({ name: '', phone: '', city: '', serviceId: '', description: '' });
     } else {
       setStatus('error');
-      setMessage(data.error ?? 'Something went wrong. Please try again.');
+      setMessage(data?.error ?? 'Something went wrong. Please try again.');
     }
   };
 

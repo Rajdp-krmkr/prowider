@@ -77,13 +77,14 @@ export async function assignProviders(leadId: number, serviceId: number): Promis
       const poolProviders = await tx.provider.findMany({
         where: {
           id: { in: pool },
-          leadsReceived: { lt: tx.provider.fields.monthlyQuota }, // capacity check
         },
         orderBy: { id: 'asc' },
       });
 
-      // Filter out already-assigned (mandatory) providers from pool candidates
-      const eligible = poolProviders.filter((p) => !assignedIds.includes(p.id));
+      // Filter out already-assigned (mandatory) providers and those at quota.
+      const eligible = poolProviders.filter(
+        (p) => !assignedIds.includes(p.id) && p.leadsReceived < p.monthlyQuota,
+      );
 
       let pointer = state.nextIndex % Math.max(eligible.length, 1);
       let picked = 0;
