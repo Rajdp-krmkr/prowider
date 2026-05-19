@@ -11,9 +11,7 @@
  *              a PostgreSQL advisory lock so parallel requests are sequenced.
  */
 
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { prisma } from '@/lib/prisma';
 
 // ─── Configuration ────────────────────────────────────────────────────────────
 
